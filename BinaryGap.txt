@@ -1,0 +1,29 @@
+public static int maxGap(int n) {
+    // get rid of right-hand zeros
+    while (n != 0 && (n & 1) == 0) {
+        n >>>= 1;
+    }
+
+    int max = 0;
+    int gap = 0;
+    while (n != 0) {     //start with 1
+        if ((n & 1) == 0) {
+            gap++;
+            max = Math.max(gap, max);
+        } else {
+            gap = 0;
+        }
+        n >>>= 1;
+    }
+    return max;
+}
+
+
+
+
+要點
+1. (N & 1) ==0         檢查N的個位數是否為0
+2. (N & 1) ==1         檢查N的個位數是否為1
+3.  只有兩個可能性 1和0,只要不是0 => 位是1 
+   所以在一開始時清走右邊的0,便不用考慮  100001   右邊有沒有1 出現
+   (ELSE CASE 已經是1出現,不用特定CONDITION)

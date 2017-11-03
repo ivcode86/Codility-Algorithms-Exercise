@@ -1,0 +1,65 @@
+MaxCounters
+
+
+ 
+ 
+
+ import java.util.*;
+
+// you can write to stdout for debugging purposes, e.g.
+// System.out.println("this is a debug message");
+
+class Solution {
+    public int[] solution(int N, int[] A) {
+    
+int currMax = 0;
+		int lastMax = 0;
+		int[] counter = new int[N];
+
+		for (int i = 0; i < A.length; i++) {
+			if (A[i] >= 1 && A[i] <= N) { // increase 1
+				counter[A[i] - 1] = Math.max( counter[A[i] - 1],lastMax);
+				counter[A[i] - 1] += 1;
+				currMax = Math.max( counter[A[i] - 1],currMax);
+			} else if (A[i] == N + 1) {
+				lastMax = currMax;
+			}
+		}
+
+		for (int i = 0; i < counter.length; i++) {
+			counter[i] = Math.max(lastMax, counter[i]);
+		}
+
+		return counter;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------
+Remark:
+  Time O(N*M)
+ It is not good becuase there an inner loop to max all coum
+ 
+ 
+
+The problem is that when you get lots of max_counter operations you get lots of calls to Arrays.fill which makes your solution slow.
+
+You should keep a currentMax and a currentMin:
+
+When you get a max_counter you just set currentMin = currentMax.
+If you get another value, let's call it i:
+If the value at position i - 1 is smaller or equal to currentMin you set it to currentMin + 1.
+Otherwise you increment it.
+At the end just go through the counters array again and set everything less than currentMin to currentMin.

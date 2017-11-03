@@ -1,0 +1,48 @@
+For example, given array A such that:
+
+    A[0] = 4
+    A[1] = 1
+    A[2] = 3
+    A[3] = 2
+the function should return 1.
+
+Given array A such that:
+
+    A[0] = 4
+    A[1] = 1
+    A[2] = 3
+the function should return 0.
+
+
+
+
+
+---------------------------------
+
+
+import java.util.*;
+
+class Solution {
+    public int solution(int[] A) {
+       Set<Integer> linkedHashSet = new LinkedHashSet<>();
+       for (int i=0;i<A.length;i++){
+           if (A[i]<=A.length&&A[i]>0){
+                 linkedHashSet.add(A[i]);   
+           }    
+       }
+       
+       if (linkedHashSet.size()==A.length){
+           return 1;
+       }else{
+           return 0;   
+       }
+    }
+}
+
+
+
+
+
+
+
+key: use LinkedHashSet

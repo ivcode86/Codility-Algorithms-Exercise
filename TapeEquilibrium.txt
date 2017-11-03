@@ -1,0 +1,76 @@
+TapeEquilibrium
+
+class Solution {
+    public int solution(int[] A) {
+        if (A.length==0){
+            return 0;
+        }else if (A.length==1){
+            return A[0];
+        }
+      
+       int sum=0;
+        for (int i=0;i<A.length;i++){
+         sum += A[i];   
+        }
+      
+        int first =A[0];
+        int second = sum-A[0];
+        int diff[] = new int[A.length-1];   //do not count ths last P
+        diff[0] =Math.abs(second -first);
+        int min= diff[0];
+        
+        
+        for (int i=1;i<diff.length;i++){
+         first = first +A[i];
+         second = second -A[i];
+         diff[i] = Math.abs(second -first);        
+         min = Math.min(min,diff[i]);
+
+        }
+        
+  
+     
+        return min;
+    }
+}
+
+
+remark:
+
+This question is to get the min,it could only store the min by compare the previous min value and current value 
+  * min = Math.min(min,diff[i]); *
+
+
+1st:|3 − 10| = 7 
+  A[0] = 3
+--------------  
+  A[1] = 1
+  A[2] = 2
+  A[3] = 4
+  A[4] = 3
+  
+  When P=0
+  int first =A[0];
+  int second = sum-A[0];
+  
+  
+  
+2st:|4 − 9| = 5 
+
+  A[0] = 3
+ <A[1] = 1>
+ --------------   
+  A[2] = 2
+  A[3] = 4
+  A[4] = 3
+   
+   
+  When P =i
+  first = first +A[i];
+  second = second -A[i];
+  
+  
+  
+  
+
+ 

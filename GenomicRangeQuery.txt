@@ -1,0 +1,127 @@
+1. GenomicRangeQuery
+
+
+public class GenomicRangeQuery {
+
+
+	public static void main(String[] args) {
+		
+		solution("CAGCCTA",new int[]{2,5,0},new int[]{4,5,6});
+		
+	}
+	
+    public static int[] solution(String s, int[] p, int[] q) {
+
+    	int[][] a = new int[4][s.length()]; // A, C, G and T
+
+    	for (int i = 0; i < s.length(); i++) {
+    	    char ch = s.charAt(i);
+    	    switch (ch) {
+    	    case 'A':
+    	        a[0][i]++;
+    	        break;
+    	    case 'C':
+    	        a[1][i]++;
+    	        break;
+    	    case 'G':
+    	        a[2][i]++;
+    	        break;
+    	    case 'T':
+    	        a[3][i]++;
+    	        break;
+    	    default:
+    	        break;
+    	    }
+    	}
+    	
+    	//P[k] = P[k - 1] + A[k - 1]
+    	int[][] prefixSum = new int[4][s.length() + 1];
+    	for (int k = 1; k < s.length() + 1; k++) {
+    	    for (int j = 0; j < 4; j++) {
+    	        prefixSum[j][k] = prefixSum[j][k - 1] + a[j][k - 1];
+    	    }
+    	}
+    	
+    	int[] m = new int[p.length];
+    	for (int i = 0; i < p.length; i++) {
+    	    int x = p[i];
+    	    int y = q[i];
+    	    for (int j = 0; j < 4; j++) {
+    	    	System.out.println("i:"+i);
+    	        if (prefixSum[j][y + 1] - prefixSum[j][x] > 0) {
+    	            m[i] = j + 1;
+    	            break;
+    	        }
+    	    }
+    	}
+    	
+    	
+		return m;
+	
+    }
+
+}
+
+
+
+
+
+Remark
+
+	/***
+	 * 
+    P[k] = P[k - 1] + A[k - 1]
+ 
+	開四個Prefix Sums數組分別用來統計ACGT從m到n的個數，如果A個數為0就看C，如此類推
+	P[y + 1] - P[x] > 0 ,  Prefix sum 有個數
+	
+	The final step is to return the value of the minimal impact factor of nucleotides contained in the given range. 
+	I did that by checking if the difference between the highest range prefix sum and the lowest returns a value above 0, 
+	if yes, then it means that a nucleotide of that impact factor must have occured,
+	hence it’s our answer and we can break out of the loop.
+	
+	***/
+
+
+
+
+
+
+
+
+
+----------------------
+score: 37 of 100 
+Correctness 60%  Performance 0%
+
+class Solution {
+    
+  public int[] solution(String S, int[] P, int[] Q) {
+    	int letter[]= new int[S.length()];
+    	int result[]=new int[P.length];
+    	
+     	for (int i=0;i<letter.length;i++){	
+        switch(S.charAt(i)){
+        case 'A':  letter[i] = 1;
+        break;
+        case 'C':  letter[i] = 2;
+        break;
+        case 'G':  letter[i] = 3;
+        break;
+        case 'T':  letter[i] = 4;
+        break;
+         }
+    	}
+        
+        for (int k=0;k<P.length;k++){
+        	if(letter[P[k]]<letter[Q[k]]){
+        		result[k]=letter[P[k]];
+        	}else{
+        		result[k]=letter[Q[k]];
+        	}
+        }
+  	return result;
+  
+  }
+  
+}

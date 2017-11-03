@@ -1,0 +1,24 @@
+
+ import java.util.*;
+
+
+class Solution {
+    public int solution(int X, int[] A) {
+ HashMap<Integer,Integer> hMap = new HashMap<Integer,Integer>();   
+	
+		for (int i = 0; i < A.length;i++){
+			    hMap.put(A[i],i); 								    
+				if (hMap.size()>=X){
+					return hMap.get(A[i]);
+				}		
+		}
+		return -1;
+    }
+}
+
+Remark
+(that is, we want to find the earliest moment when all the positions from 1 to X are covered by leaves)
+HashMap has unique key
+
+
+
